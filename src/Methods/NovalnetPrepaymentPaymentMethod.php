@@ -157,6 +157,6 @@ class NovalnetPrepaymentPaymentMethod extends PaymentMethodService
      */
     public function isSwitchableFrom(): bool
     {
-        return false;
+        return true;
     }
 }
