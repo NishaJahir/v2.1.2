@@ -154,8 +154,11 @@ class NovalnetInvoicePaymentMethod extends PaymentMethodService
      *
      * @return bool
      */
-    public function isSwitchableFrom(): bool
+    public function isSwitchableFrom($orderId = null): bool
     {
-        return true;
+	if($orderId > 0) {
+            return true;
+	}
+	    return false;
     }
 }
