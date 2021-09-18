@@ -20,25 +20,24 @@ class NovalnetPaymentMethodReinitializePayment
     $config = pluginApp(ConfigRepository::class);
     $basketRepository = pluginApp(BasketRepositoryContract::class);
     $sessionStorage = pluginApp(FrontendSessionStorageFactoryContract::class);
-    
+    $paymentHelper->logger('order', $order);
     foreach($order->properties as $property) {
       if($property->typeId == 3 )
       {
           $mopId = $property->value;
-          break;
       }
     }
     
     $paymentKey = $paymentHelper->getPaymentKeyByMop($mopId);
     $paymentHelper->logger('payment key', $paymentKey);
     
-    
+       
        $serverRequestData = $paymentService->getRequestParameters($basketRepository->load(), $paymentKey);
-       $paymentHelper->logger('request data key', $serverRequestData);
+       $paymentHelper->logger('request data', $serverRequestData);
        $sessionStorage->getPlugin()->setValue('nnPaymentData', $serverRequestData);
        $sessionStorage->getPlugin()->setValue('nnOrderNo',$order->id);
        $sessionStorage->getPlugin()->setValue('mop',$mopId);
-    $sessionStorage->getPlugin()->setValue('paymentKey',$paymentKey);
+       $sessionStorage->getPlugin()->setValue('paymentKey',$paymentKey);
        
    
       return $twig->render('Novalnet::NovalnetPaymentMethodReinitializePayment', [
