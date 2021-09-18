@@ -261,4 +261,10 @@ class PaymentController extends Controller
           }
     }
     
+    public function changePaymentMethod() 
+    {
+        $requestData = $this->request->all();
+        $this->getLogger(__METHOD__)->error('changePaymentMethod', $requestData);
+    }
+    
 }
