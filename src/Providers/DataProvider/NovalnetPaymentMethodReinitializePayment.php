@@ -21,17 +21,15 @@ class NovalnetPaymentMethodReinitializePayment
     $basketRepository = pluginApp(BasketRepositoryContract::class);
     $sessionStorage = pluginApp(FrontendSessionStorageFactoryContract::class);
     $paymentHelper->logger('order', $order);
-    foreach($order->properties as $properties) {
-      foreach($properties as $property) {
+    foreach($order['properties'] as $property) {
         if($property->typeId == 3 )
         {
             $mopId = $property->value;
         }
-      }
     }
     
     $paymentKey = $paymentHelper->getPaymentKeyByMop($mopId);
-    $paymentHelper->logger('payment keyyy', $paymentKey);
+    $paymentHelper->logger('paymentkey this', $paymentKey);
     
        
        $serverRequestData = $paymentService->getRequestParameters($basketRepository->load(), $paymentKey);
