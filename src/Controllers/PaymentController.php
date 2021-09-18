@@ -26,6 +26,7 @@ use Novalnet\Services\PaymentService;
 use Plenty\Plugin\Templates\Twig;
 use Plenty\Plugin\ConfigRepository; 
 use Novalnet\Services\TransactionService;
+use Plenty\Plugin\Log\Loggable;
 
 /**
  * Class PaymentController
@@ -34,6 +35,7 @@ use Novalnet\Services\TransactionService;
  */
 class PaymentController extends Controller
 {
+    use Loggable;
     /**
      * @var Request
      */
