@@ -6,34 +6,45 @@ use Plenty\Plugin\Templates\Twig;
 use Novalnet\Helper\PaymentHelper;
 use Novalnet\Services\PaymentService;
 use Plenty\Plugin\ConfigRepository;
+use Plenty\Modules\Basket\Contracts\BasketRepositoryContract;
+use Plenty\Modules\Frontend\Session\Storage\Contracts\FrontendSessionStorageFactoryContract;
 
 class NovalnetPaymentMethodReinitializePayment
 {
   
   public function call(Twig $twig, $arg):string
   {
-    /** @var PaymentHelper $paymentHelper */
+    $order = $arg[0];
     $paymentHelper = pluginApp(PaymentHelper::class);
     $paymentService = pluginApp(PaymentService::class);
     $config = pluginApp(ConfigRepository::class);
-    $paymentKey = 'NOVALNET_SEPA';
-    $paymentHelper->logger('order details', $arg[0]);
-    $name = trim($config->get('Novalnet.' . strtolower($paymentKey) . '_payment_name'));
-    $paymentName = ($name ? $name : $paymentHelper->getTranslatedText(strtolower($paymentKey)));
-    $endUserName = '';
-    $endCustomerName = 'Norbert Maier';
-    $show_birthday = false;
+    $basketRepository = pluginApp(BasketRepositoryContract::class);
+    $sessionStorage = pluginApp(FrontendSessionStorageFactoryContract::class);
     
+    foreach($order->properties as $property) {
+      if($property->typeId == 3 )
+      {
+          $mopId = $property->value;
+          break;
+      }
+    }
     
-    return $twig->render('Novalnet::NovalnetPaymentMethodReinitializePayment', [
-      "order" => $arg[0], 
-      "paymentMethodId" => 6002,
-      'nnPaymentProcessUrl' => $paymentService->getProcessPaymentUrl(),
-      'paymentMopKey'     =>  $paymentKey,
-      'paymentName' => $paymentName,  
-       'endcustomername'=> empty(trim($endUserName)) ? $endCustomerName : $endUserName,
-       'nnGuaranteeStatus' => $show_birthday ? $guaranteeStatus : '',
-      'reInit' => 1
-   ]);
+    $paymentKey = $paymentHelper->getPaymentKeyByMop($mopId);
+    $paymentHelper->logger('payment key', $paymentKey);
+    
+    if (in_array($paymentKey, ['NOVALNET_INVOICE', 'NOVALNET_PREPAYMENT', 'NOVALNET_CASHPAYMENT'])) {
+       $serverRequestData = $paymentService->getRequestParameters($basketRepository->load(), $paymentKey);
+       $sessionStorage->getPlugin()->setValue('nnPaymentData', $serverRequestData);
+       $sessionStorage->getPlugin()->setValue('nnOrderNo',$event->getOrderId());
+       $sessionStorage->getPlugin()->setValue('mop',$event->getMop());
+       $paymentService->paymentCalltoNovalnetServer();
+       $paymentService->validateResponse();
+    } else {
+      return $twig->render('Novalnet::NovalnetPaymentMethodReinitializePayment', [
+        "order" => $order, 
+        "paymentMethodId" => $mopId,
+        "paymentKey" => $paymentKey
+      ]);
+    }
   }
 }
