@@ -987,10 +987,6 @@ class PaymentService
             $this->pushNotification($notificationMessage, 'success', 100);
             
         } else {
-            $orderNo = !empty($responseData['order_no']) ? $responseData['order_no'] : $serverRequestData['data']['order_no'];
-            if(!empty($orderNo)) {
-                $this->paymentHelper->cancelPlentyOrder((int)$orderNo);
-            }
             $this->pushNotification($notificationMessage, 'error', 100);
         }
           
