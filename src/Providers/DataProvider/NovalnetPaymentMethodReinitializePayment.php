@@ -34,9 +34,10 @@ class NovalnetPaymentMethodReinitializePayment
     
     if (in_array($paymentKey, ['NOVALNET_INVOICE', 'NOVALNET_PREPAYMENT', 'NOVALNET_CASHPAYMENT'])) {
        $serverRequestData = $paymentService->getRequestParameters($basketRepository->load(), $paymentKey);
+      $paymentHelper->logger('request data key', $serverRequestData);
        $sessionStorage->getPlugin()->setValue('nnPaymentData', $serverRequestData);
-       $sessionStorage->getPlugin()->setValue('nnOrderNo',$event->getOrderId());
-       $sessionStorage->getPlugin()->setValue('mop',$event->getMop());
+       $sessionStorage->getPlugin()->setValue('nnOrderNo',$order->id);
+       $sessionStorage->getPlugin()->setValue('mop',$mopId);
        $paymentService->paymentCalltoNovalnetServer();
        $paymentService->validateResponse();
     } else {
