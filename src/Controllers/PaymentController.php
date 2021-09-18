@@ -269,8 +269,8 @@ class PaymentController extends Controller
         $paymentKey = $this->sessionStorage->getPlugin()->getValue('paymentKey');
         $this->getLogger(__METHOD__)->error('changePaymentMethod', $requestData);
         if (in_array($paymentKey, ['NOVALNET_INVOICE', 'NOVALNET_PREPAYMENT', 'NOVALNET_CASHPAYMENT'])) {
-            $paymentService->paymentCalltoNovalnetServer();
-            $paymentService->validateResponse();
+            $this->paymentService->paymentCalltoNovalnetServer();
+            $this->paymentService->validateResponse();
         }
         return $this->response->redirectTo('confirmation');
     }
