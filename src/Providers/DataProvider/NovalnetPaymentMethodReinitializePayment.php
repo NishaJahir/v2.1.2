@@ -47,6 +47,6 @@ class NovalnetPaymentMethodReinitializePayment
         "paymentMethodId" => $mopId,
         "paymentKey" => $paymentKey
       ]);
-     }
+     
   }
 }
