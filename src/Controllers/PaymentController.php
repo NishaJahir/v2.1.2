@@ -272,7 +272,7 @@ class PaymentController extends Controller
             $this->paymentService->paymentCalltoNovalnetServer();
             $this->paymentService->validateResponse();
         }
-        return $this->response->redirectTo('confirmation');
+        
     }
     
 }
