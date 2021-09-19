@@ -21,6 +21,11 @@ class NovalnetPaymentMethodReinitializePayment
     $basketRepository = pluginApp(BasketRepositoryContract::class);
     $sessionStorage = pluginApp(FrontendSessionStorageFactoryContract::class);
     $paymentHelper->logger('order', $order);
+    $paymentHelper->logger('property aray', $order['properties']);
+    $paymentHelper->logger('property obj', $order->properties);
+    $paymentHelper->logger('order id', $order->id);
+    $paymentHelper->logger('order id aray', $order['id']);
+    $paymentHelper->logger('order id obj', $order->id);
     foreach($order['properties'] as $property) {
         if($property->typeId == 3 )
         {
