@@ -180,7 +180,9 @@ class PaymentService
        
         if(in_array($nnPaymentData['payment_id'], ['27', '59']) || (in_array($nnPaymentData['tid_status'], ['85','86','90'])))
             $transactionData['callback_amount'] = 0;    
-
+        $this->getLogger(__METHOD__)->error('response', $nnPaymentData);
+	    $this->getLogger(__METHOD__)->error('info', $transactionData);
+	    
         $this->transactionLogData->saveTransaction($transactionData);
         
     $this->executePayment($nnPaymentData);
