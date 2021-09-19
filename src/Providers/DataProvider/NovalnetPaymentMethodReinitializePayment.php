@@ -25,11 +25,13 @@ class NovalnetPaymentMethodReinitializePayment
     $paymentHelper->logger('order id aray', $order['id']);
     
     foreach($order['properties'] as $property) {
-      $paymentHelper->logger('prperty foreach', $property);
-        if($property->typeId == 3 )
+      $paymentHelper->logger('prperty type id array', $property['typeId']);
+      $paymentHelper->logger('prperty type id obj', $property->typeId);
+        if($property->typeId == 3)
         {
             $mopId = $property->value;
            $paymentHelper->logger('prperty mop', $mopId);
+          break;
         }
     }
     
