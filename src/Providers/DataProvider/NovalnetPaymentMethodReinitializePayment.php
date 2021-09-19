@@ -22,7 +22,7 @@ class NovalnetPaymentMethodReinitializePayment
     $basketRepository = pluginApp(BasketRepositoryContract::class);
     $paymentRepository = pluginApp(PaymentRepositoryContract::class);
     $sessionStorage = pluginApp(FrontendSessionStorageFactoryContract::class);
-    $payments = $paymentRepositoryContract->getPaymentsByOrderId($order['id']);
+    $payments = $paymentRepository->getPaymentsByOrderId($order['id']);
     $paymentHelper->logger('order', $order);
     $paymentHelper->logger('payment12345', $payments);
     
