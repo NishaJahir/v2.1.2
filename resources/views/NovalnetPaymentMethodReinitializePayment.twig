@@ -18,7 +18,7 @@
 {% endif %}
 
 {% if services.template.isCurrentTemplate('tpl.my-account') %}
-  <button id="reinitPaymentMethod-{{order.id}}" class="btn btn-primary btn-block"   @click="" data-toggle="modal" data-target="#paymentMethod" :disabled style="display: {{ display }}; margin-top: 0.5rem">
+  <button id="reinitPaymentMethod-{{order.id}}" class="btn btn-primary btn-block"   @click="" data-toggle="modal" data-target="#paymentMethod" :disabled="" style="display: {{ display }}; margin-top: 0.5rem">
     Pay Now
   </button>
 {% elseif services.template.isCurrentTemplate('tpl.confirmation') %}
@@ -26,10 +26,11 @@
     <strong class="col-xs-6 col-sm-5"></strong>
     <span class="col-xs-6 col-sm-7">
       <input type="hidden" name="paymentMethodId" id="paymentMethodId" value="{{paymentMethodId}}">
-      <a class="payment-confirmation-btn"  id="reinitNnPayment" @click=""  :disabled> Pay Now </a>
+      <a class="payment-confirmation-btn"  id="reinitNnPayment" @click=""  :disabled=""> Pay Now </a>
     </span>
   </div>
 {% endif %}
+
 
 
 <div class="modal" tabindex="-1" role="dialog" id="novalnetPaymentForm1">
@@ -43,6 +44,7 @@
 
 <script>
   jQuery('document').ready(function() {
+    jQuery('#reinitNnPayment').click();
    jQuery('.payment-confirmation-btn').click(function() {
      jQuery('#novalnetPaymentForm1').show();
    });
