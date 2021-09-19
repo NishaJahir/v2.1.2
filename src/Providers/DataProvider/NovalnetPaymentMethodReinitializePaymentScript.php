@@ -10,8 +10,9 @@ class NovalnetPaymentMethodReinitializePaymentScript
   public function call(Twig $twig, $arg):string
   {
     $order = $arg[0];
-    $paymentHelper->logger('order script', $order);
+    
     $paymentHelper = pluginApp(PaymentHelper::class);
+    $paymentHelper->logger('order script', $order);
     
     foreach($order['properties'] as $property) {
         if($property['typeId'] == 3)
