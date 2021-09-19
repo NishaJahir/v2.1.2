@@ -48,6 +48,7 @@ class NovalnetOrderConfirmationDataProvider
         $paymentService = pluginApp(PaymentService::class);
         $transactionLog  = pluginApp(TransactionService::class); 
         $sessionStorage = pluginApp(FrontendSessionStorageFactoryContract::class);
+        $paymentHelper->logger('argument', $arg);
         $order = $arg[0];
         $barzhlentoken = '';
         $barzahlenurl = '';
