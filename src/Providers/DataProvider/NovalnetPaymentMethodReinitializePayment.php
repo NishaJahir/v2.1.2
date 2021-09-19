@@ -8,6 +8,7 @@ use Novalnet\Services\PaymentService;
 use Plenty\Plugin\ConfigRepository;
 use Plenty\Modules\Basket\Contracts\BasketRepositoryContract;
 use Plenty\Modules\Frontend\Session\Storage\Contracts\FrontendSessionStorageFactoryContract;
+use Plenty\Modules\Payment\Contracts\PaymentRepositoryContract;
 
 class NovalnetPaymentMethodReinitializePayment
 {
@@ -19,8 +20,10 @@ class NovalnetPaymentMethodReinitializePayment
     $paymentService = pluginApp(PaymentService::class);
     $config = pluginApp(ConfigRepository::class);
     $basketRepository = pluginApp(BasketRepositoryContract::class);
+    $payments = pluginApp(PaymentRepositoryContract::class);
     $sessionStorage = pluginApp(FrontendSessionStorageFactoryContract::class);
     $paymentHelper->logger('order', $order);
+    $paymentHelper->logger('payment', $payments);
     
     foreach($order['properties'] as $property) {
         if($property['typeId'] == 3)
