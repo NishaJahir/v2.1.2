@@ -21,17 +21,15 @@ class NovalnetPaymentMethodReinitializePayment
     $basketRepository = pluginApp(BasketRepositoryContract::class);
     $sessionStorage = pluginApp(FrontendSessionStorageFactoryContract::class);
     $paymentHelper->logger('order', $order);
-    $paymentHelper->logger('property aray', $order['properties']);    
-    $paymentHelper->logger('order id aray', $order['id']);
     
     foreach($order['properties'] as $property) {
-      $paymentHelper->logger('prperty type id array', $property['typeId']);
-      $paymentHelper->logger('prperty type id obj', $property->typeId);
-        if($property->typeId == 3)
+        if($property['typeId'] == 3)
         {
-            $mopId = $property->value;
-           $paymentHelper->logger('prperty mop', $mopId);
-          break;
+            $mopId = $property['value'];
+        }
+        if($property['typeId'] == 4)
+        {
+            $paidStatus = $property['value'];
         }
     }
     
@@ -46,9 +44,9 @@ class NovalnetPaymentMethodReinitializePayment
        $sessionStorage->getPlugin()->setValue('mop',$mopId);
        $sessionStorage->getPlugin()->setValue('paymentKey',$paymentKey);
        
-     if ($paymentKey == 'NOVALNET_INVOICE') {
+     if ($paidStatus != 'fullyPaid' && $paymentKey == 'NOVALNET_INVOICE') {
          $paymentService->paymentCalltoNovalnetServer();
-            $paymentService->validateResponse();
+         $paymentService->validateResponse();
      } else {
       return $twig->render('Novalnet::NovalnetPaymentMethodReinitializePayment', [
         "order" => $order, 
