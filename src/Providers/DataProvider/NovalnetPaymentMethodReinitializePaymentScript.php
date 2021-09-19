@@ -7,20 +7,11 @@ use Novalnet\Helper\PaymentHelper;
 
 class NovalnetPaymentMethodReinitializePaymentScript
 {
-  public function call(Twig $twig, $arg):string
+  public function call(Twig $twig):string
   {
-    $order = $arg[0];
     
     $paymentHelper = pluginApp(PaymentHelper::class);
-    $paymentHelper->logger('order script', $order);
     
-    foreach($order['properties'] as $property) {
-        if($property['typeId'] == 3)
-        {
-            $mopId = $property['value'];
-        }
-    }
-    $paymentHelper->logger('script', $mopId);
-    return $twig->render('Novalnet::NovalnetPaymentMethodReinitializePaymentScript', ['mopIds' => ['paymentMethodId' => $mopId]]);
+    return $twig->render('Novalnet::NovalnetPaymentMethodReinitializePaymentScript', ['mopIds' => ['paymentMethodId' => 6003]]);
   }
 }
