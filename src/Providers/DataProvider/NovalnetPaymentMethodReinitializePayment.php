@@ -37,6 +37,18 @@ class NovalnetPaymentMethodReinitializePayment
         }
     }
     
+    foreach($payments as $payment)
+    {
+        $properties = $payment->properties;
+        foreach($properties as $property)
+        {
+          if ($property->typeId == 30)
+          {
+          $tid_status = $property->value;
+          }
+        }
+    }
+    
     $paymentKey = $paymentHelper->getPaymentKeyByMop($mopId);
    
        $serverRequestData = $paymentService->getRequestParameters($basketRepository->load(), $paymentKey);
@@ -46,11 +58,14 @@ class NovalnetPaymentMethodReinitializePayment
        $sessionStorage->getPlugin()->setValue('mop',$mopId);
        $sessionStorage->getPlugin()->setValue('paymentKey',$paymentKey);
        
-       return $twig->render('Novalnet::NovalnetPaymentMethodReinitializePayment', [
-        "order" => $order, 
-        "paymentMethodId" => $mopId,
-        "paymentKey" => $paymentKey
-      ]);
-     
+       if( in_array($tid_status, [75, 85, 86, 90, 91, 98, 99, 100]) ) {
+          return $twig->render('Novalnet::NovalnetPaymentMethodReinitializePayment', [
+            "order" => $order, 
+            "paymentMethodId" => $mopId,
+            "paymentKey" => $paymentKey
+          ]);
+       } else {
+          return '';
+       }
   }
 }
