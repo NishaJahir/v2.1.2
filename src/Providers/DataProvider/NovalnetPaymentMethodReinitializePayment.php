@@ -34,9 +34,7 @@ class NovalnetPaymentMethodReinitializePayment
     }
     
     $paymentKey = $paymentHelper->getPaymentKeyByMop($mopId);
-    $paymentHelper->logger('paymentkey this', $paymentKey);
-    
-       
+   
        $serverRequestData = $paymentService->getRequestParameters($basketRepository->load(), $paymentKey);
        $paymentHelper->logger('request data', $serverRequestData);
        $sessionStorage->getPlugin()->setValue('nnPaymentData', $serverRequestData);
@@ -44,11 +42,7 @@ class NovalnetPaymentMethodReinitializePayment
        $sessionStorage->getPlugin()->setValue('mop',$mopId);
        $sessionStorage->getPlugin()->setValue('paymentKey',$paymentKey);
        
-     if ($paidStatus != 'fullyPaid' && $paymentKey == 'NOVALNET_INVOICE') {
-         $paymentService->paymentCalltoNovalnetServer();
-         $paymentService->validateResponse();
-     } else {
-      return $twig->render('Novalnet::NovalnetPaymentMethodReinitializePayment', [
+       return $twig->render('Novalnet::NovalnetPaymentMethodReinitializePayment', [
         "order" => $order, 
         "paymentMethodId" => $mopId,
         "paymentKey" => $paymentKey
