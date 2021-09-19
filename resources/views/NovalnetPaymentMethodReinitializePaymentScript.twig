@@ -5,6 +5,7 @@
       $.get("/payment/novalnet/changePaymentMethod/", function(data)
       {
         console.log(orderId);
+        window.location = data;
       });
     });
   });
