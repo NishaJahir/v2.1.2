@@ -10,7 +10,7 @@
       });
     });
   });
-  var paymentMethodId = jQuery('#paymentMethodId').val();
+
   document.addEventListener('historyPaymentMethodChanged', e => {
     for(let property in e.detail.newOrder.order.properties){
       if(e.detail.newOrder.order.properties[property].typeId === 3){
