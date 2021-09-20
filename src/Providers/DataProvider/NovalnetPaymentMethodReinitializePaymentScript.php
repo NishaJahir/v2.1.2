@@ -15,7 +15,7 @@ class NovalnetPaymentMethodReinitializePaymentScript
     $paymentHelper = pluginApp(PaymentHelper::class);
     $paymentMethodRepository = pluginApp(PaymentMethodRepositoryContract::class);
     
-    $paymentMethods = $this->paymentMethodRepository->allForPlugin('plenty_novalnet');
+    $paymentMethods = $paymentMethodRepository->allForPlugin('plenty_novalnet');
     
     if(!is_null($paymentMethods))
     {
