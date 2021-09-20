@@ -258,10 +258,11 @@ class PaymentService
      * @param Basket $basket
      * @param PaymentKey $paymentKey
      * @param bool $doRedirect
+     * @param int $orderAmount
      *
      * @return array
      */
-    public function getRequestParameters(Basket $basket, $paymentKey = '', $doRedirect = false)
+    public function getRequestParameters(Basket $basket, $paymentKey = '', $doRedirect = false, $orderAmount = 0)
     {
         
      /** @var \Plenty\Modules\Frontend\Services\VatService $vatService */
