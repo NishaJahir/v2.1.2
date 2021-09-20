@@ -18,11 +18,11 @@
 {% endif %}
 
 {% if services.template.isCurrentTemplate('tpl.my-account') %}
-  <button id="reinitPaymentMethod-{{order.id}}" class="btn btn-primary btn-block"   @click="" data-toggle="modal" data-target="#paymentMethod" :disabled="" style="display: {{ display }}; margin-top: 0.5rem">
+  <button id="nnReinitPaymentMethod-{{order.id}}" class="btn btn-primary btn-block" style="display: {{ display }}; margin-top: 0.5rem">
     Pay Now
   </button>
 {% elseif services.template.isCurrentTemplate('tpl.confirmation') %}
-  <div id="reinitPaymentMethod-{{order.id}}" class="row con-reinit" style="display:none;">
+  <div id="nnReinitPaymentMethod-{{order.id}}" class="row con-reinit" style="display:{{ display }};">
     <strong class="col-xs-6 col-sm-5"></strong>
     <span class="col-xs-6 col-sm-7">
       <input type="hidden" name="paymentMethodId" id="paymentMethodId" value="{{paymentMethodId}}">
@@ -30,14 +30,3 @@
     </span>
   </div>
 {% endif %}
-
-
-
-<div class="modal" tabindex="-1" role="dialog" id="novalnetPaymentForm1">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      
-      {% include "Novalnet::PaymentForm.NOVALNET_SEPA" %}
-    </div>
-  </div>
-</div>
