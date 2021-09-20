@@ -949,9 +949,11 @@ class PaymentService
     public function getDatabaseValues($orderId) {
         $database = pluginApp(DataBase::class);
         $transaction_details = $database->query(TransactionLog::class)->where('orderNo', '=', $orderId)->get();
-        if (!empty($transaction_details)) {
+        foreach($transaction_details as $transaction_detail) {
+             $end_transaction_detail = $transaction_detail;
+	}
         //Typecasting object to array
-        $transaction_details = (array)($transaction_details[0]);
+        $transaction_details = (array) $end_transaction_detail;
         $transaction_details['order_no'] = $transaction_details['orderNo'];
         $transaction_details['amount'] = $transaction_details['amount'] / 100;
         //Decoding the json as array
