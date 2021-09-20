@@ -2,7 +2,7 @@
 
 <script type="text/javascript">
   $(function () {
-    $("[id^='nnReinitPaymentMethod-']").click(function () {
+    $("#direct-payment-process").click(function () {
       var orderId = $(this).attr('id').split('-')[1];
       $.get("/payment/novalnet/changePaymentmethod/", function(data)
       {
