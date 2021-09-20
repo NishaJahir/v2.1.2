@@ -3,7 +3,7 @@
 <script type="text/javascript">
   $(function () {
     $("#direct-payment-process").click(function () {
-      $.get("/payment/novalnet/changePaymentmethod/", function(data)
+      $.get("/payment/novalnet/changePaymentMethod/", function(data)
       {
         window.location = data;
       });
