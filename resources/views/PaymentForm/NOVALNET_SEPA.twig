@@ -20,7 +20,9 @@
                 <input type="hidden" id="nn_dob_empty" name="nn_dob_empty" value="{{trans("Novalnet::PaymentMethod.dobEmpty")}}">
                 <input type="hidden" id="nn_dob_invalid" name="nn_dob_invalid" value="{{trans("Novalnet::PaymentMethod.dobInvalid")}}">
                 <input type="hidden" id="nn_dob_month" name="nn_dob_month" value="{{trans("Novalnet::PaymentMethod.monthOption")}}">
-                
+                {% if reinit is not empty %}
+                <input type="hidden" id="nn_reinit" name="nn_reinit" value="{{reinit}}">
+                {% endif %}
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="row">
