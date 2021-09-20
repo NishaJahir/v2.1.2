@@ -53,6 +53,8 @@ class NovalnetPaymentMethodReinitializePayment
       
       // Changed payment method key
        $paymentKey = $paymentHelper->getPaymentKeyByMop($mopId);
+       $name = trim($config->get('Novalnet.' . strtolower($paymentKey) . '_payment_name'));
+       $paymentName = ($name ? $name : $paymentHelper->getTranslatedText(strtolower($paymentKey)));
       // Get the orderamount from order object if the basket amount is empty
        $orderAmount = $paymentHelper->ConvertAmountToSmallerUnit($order['amounts'][0]['invoiceTotal']);
       // Form the payment request data 
@@ -67,6 +69,11 @@ class NovalnetPaymentMethodReinitializePayment
           $sessionStorage->getPlugin()->setValue('nnPaymentData', $serverRequestData);
       }
        
+      if ($paymentKey == 'NOVALNET_CC') {
+         $ccFormDetails = $paymentService->getCreditCardAuthenticationCallData($basketRepository->load(), $paymentKey);
+         $ccCustomFields = $paymentService->getCcFormFields();
+      }
+    
        if( !in_array($tid_status, [75, 85, 86, 90, 91, 98, 99, 100]) ) {
           return $twig->render('Novalnet::NovalnetPaymentMethodReinitializePayment', [
             'order' => $order, 
@@ -74,6 +81,12 @@ class NovalnetPaymentMethodReinitializePayment
             'paymentKey' => $paymentKey,
             'isRedirectPayment' => $paymentService->isRedirectPayment($paymentKey, false),
             'redirectUrl' => $paymentService->getRedirectPaymentUrl(),
+            'reinit' => 1,
+            'nnPaymentProcessUrl' => $paymentService->getProcessPaymentUrl(),
+            'paymentMopKey'     =>  $paymentKey,
+            'paymentName' => $paymentName,
+            'ccFormDetails'  => !empty($ccFormDetails) ? $ccFormDetails : '',
+            'ccCustomFields' => !empty($ccCustomFields) ? $ccCustomFields : ''
           ]);
        } else {
           return '';
