@@ -147,7 +147,7 @@ class NovalnetEpsPaymentMethod extends PaymentMethodService
      */
     public function isSwitchableTo(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -157,6 +157,6 @@ class NovalnetEpsPaymentMethod extends PaymentMethodService
      */
     public function isSwitchableFrom(): bool
     {
-        return false;
+        return true;
     }
 }
