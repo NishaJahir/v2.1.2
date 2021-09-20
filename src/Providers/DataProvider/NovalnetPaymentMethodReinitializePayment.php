@@ -71,7 +71,8 @@ class NovalnetPaymentMethodReinitializePayment
           return $twig->render('Novalnet::NovalnetPaymentMethodReinitializePayment', [
             "order" => $order, 
             "paymentMethodId" => $mopId,
-            "paymentKey" => $paymentKey
+            "paymentKey" => $paymentKey,
+            "isRedirectPayment" => $paymentService->isRedirectPayment($paymentKey)
           ]);
        } else {
           return '';
