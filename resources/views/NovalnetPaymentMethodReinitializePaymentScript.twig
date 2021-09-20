@@ -1,10 +1,13 @@
 <script type="text/javascript">
 jQuery('document').ready(function() {
-  var paymentMethodId = jQuery('#paymentMethodId').val();
-  console.log(paymentMethodId);
   jQuery('#redirect-payment-process').click(function() {
     window.location.href = jQuery('#nn_redirect_url').val();
   });
+  
+  jQuery('#form-payment-process').click(function() {
+    jQuery('#novalnetPaymentForm').show();
+  });
+  
 });
 
   $(function () {
@@ -17,8 +20,7 @@ jQuery('document').ready(function() {
     });
   });
  
- var paymentMethodId1 = jQuery('#paymentMethodId').val();
- console.log(paymentMethodId1);
+
   document.addEventListener('historyPaymentMethodChanged', e => {
     for(let property in e.detail.newOrder.order.properties){
       if(e.detail.newOrder.order.properties[property].typeId === 3){
