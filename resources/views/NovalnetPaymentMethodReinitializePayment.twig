@@ -26,7 +26,12 @@
     <strong class="col-xs-6 col-sm-5"></strong>
     <span class="col-xs-6 col-sm-7">
       <input type="hidden" name="paymentMethodId" id="paymentMethodId" value="{{paymentMethodId}}">
-      <a class="payment-confirmation-btn"> Pay Now </a>
+      {% if isRedirectPayment == true %}
+      <a class="payment-confirmation-btn" id="redirect-payment-process"> Pay Now </a>
+      {% else %}
+      <a class="payment-confirmation-btn" id="direct-payment-process"> Pay Now </a>
+      {% endif %}
     </span>
   </div>
 {% endif %}
+
