@@ -66,6 +66,7 @@ class NovalnetPaymentMethodReinitializePayment
       if ($paymentService->isRedirectPayment($paymentKey, false)) {
          $sessionStorage->getPlugin()->setValue('nnPaymentData', $serverRequestData['data']);
       } else {
+         $paymentHelper->logger('data', $serverRequestData);
           $sessionStorage->getPlugin()->setValue('nnPaymentData', $serverRequestData);
       }
        
