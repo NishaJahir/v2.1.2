@@ -1,14 +1,20 @@
 <link rel="stylesheet" href="{{plugin_path('Novalnet')}}/css/novalnet_ui.css">
-<script type="text/javascript" src="https://cdn.novalnet.de/js/v2/NovalnetUtility.js"></script>
-<script type="text/javascript" src="{{ plugin_path('Novalnet') }}/js/novalnet_cc.js"></script>
 
 <form method="post" id="nn_cc_form" name="nn_cc_form" action="{{nnPaymentProcessUrl}}">
+    <script type="text/javascript" src="https://cdn.novalnet.de/js/v2/NovalnetUtility.js" defer></script>
+    <script type="text/javascript" src="{{ plugin_path('Novalnet') }}/js/novalnet_cc.js" defer></script>
+
     <input type="hidden" id="nn_pan_hash" name="nn_pan_hash" />
     <input type="hidden" id="nn_unique_id" name="nn_unique_id" />
     <input type="hidden" id="nn_cc3d_redirect" name="nn_cc3d_redirect" />
     <input type="hidden" id="nn_cc_formfields" name="nn_cc_formfields" value="{{ccCustomFields|escape}}" /> 
     <input type="hidden" id="nn_cc_formdetails" name="nn_cc_formdetails" value="{{ccFormDetails|escape}}" />
     <input type="hidden" id="paymentKey" name="paymentKey" value="{{paymentMopKey}}" />
+    {% if reinit is not empty %}
+        <input type="hidden" id="nn_reinit" name="nn_reinit" value="{{reinit}}">
+        <input type="hidden" id="nn_orderamount" name="nn_orderamount" value="{{orderAmount}}">
+    {% endif %}
+                
     <div class="modal_cc_popup">
     <div class="modal-header">
         <h4 class="modal-title">{{paymentName}}</h4>
