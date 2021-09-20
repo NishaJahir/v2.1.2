@@ -975,6 +975,7 @@ class PaymentService
     public function paymentCalltoNovalnetServer () {
           
         $serverRequestData = $this->sessionStorage->getPlugin()->getValue('nnPaymentData');
+	    $this->getLogger(__METHOD__)->error('request 456', $serverRequestData);
         $serverRequestData['data']['order_no'] = $this->sessionStorage->getPlugin()->getValue('nnOrderNo');
 	    $this->getLogger(__METHOD__)->error('request data', $serverRequestData);
         $response = $this->paymentHelper->executeCurl($serverRequestData['data'], $serverRequestData['url']);
