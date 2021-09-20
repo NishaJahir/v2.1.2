@@ -69,10 +69,11 @@ class NovalnetPaymentMethodReinitializePayment
        
        if( !in_array($tid_status, [75, 85, 86, 90, 91, 98, 99, 100]) ) {
           return $twig->render('Novalnet::NovalnetPaymentMethodReinitializePayment', [
-            "order" => $order, 
-            "paymentMethodId" => $mopId,
-            "paymentKey" => $paymentKey,
-            "isRedirectPayment" => $paymentService->isRedirectPayment($paymentKey)
+            'order' => $order, 
+            'paymentMethodId' => $mopId,
+            'paymentKey' => $paymentKey,
+            'isRedirectPayment' => $paymentService->isRedirectPayment($paymentKey),
+            'redirectUrl' => $paymentService->getRedirectPaymentUrl(),
           ]);
        } else {
           return '';
