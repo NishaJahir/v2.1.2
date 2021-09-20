@@ -86,7 +86,14 @@ class NovalnetPaymentMethodReinitializePayment
             'paymentMopKey'     =>  $paymentKey,
             'paymentName' => $paymentName,
             'ccFormDetails'  => !empty($ccFormDetails) ? $ccFormDetails : '',
-            'ccCustomFields' => !empty($ccCustomFields) ? $ccCustomFields : ''
+            'ccCustomFields' => !empty($ccCustomFields) ? $ccCustomFields : '',
+            'endcustomername'=> '',
+            'nnGuaranteeStatus' => '',
+            'orderAmount' => $orderAmount,
+            'orderCurrency' => $serverRequestData['data']['currency'],
+            'showDob' => false,
+            'instalmentCycles' => explode(',', trim($config->get('Novalnet.' . strtolower($paymentKey) . '_cycles')))
+            
           ]);
        } else {
           return '';
