@@ -305,7 +305,7 @@ class PaymentService
             'zip'                => $address->postalCode,
             'customer_no'        => ($customerId) ? $customerId : 'guest',
             'lang'               => strtoupper($this->sessionStorage->getLocaleSettings()->language),
-            'amount'             => $this->paymentHelper->ConvertAmountToSmallerUnit($basket->basketAmount),
+            'amount'             => !empty($basket->basketAmount) ? $this->paymentHelper->ConvertAmountToSmallerUnit($basket->basketAmount) : $orderAmount,
             'currency'           => $basket->currency,
             'remote_ip'          => $this->paymentHelper->getRemoteAddress(),
             'system_ip'          => $this->paymentHelper->getServerAddress(),
