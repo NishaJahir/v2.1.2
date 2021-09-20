@@ -61,7 +61,7 @@ class NovalnetPaymentMethodReinitializePayment
        $sessionStorage->getPlugin()->setValue('mop',$mopId);
        $sessionStorage->getPlugin()->setValue('paymentKey',$paymentKey);
        
-      if ($paymentService->isRedirectPayment($paymentKey)) {
+      if ($paymentService->isRedirectPayment($paymentKey, false)) {
          $sessionStorage->getPlugin()->setValue('nnPaymentData', $serverRequestData['data']);
       } else {
           $sessionStorage->getPlugin()->setValue('nnPaymentData', $serverRequestData);
@@ -72,7 +72,7 @@ class NovalnetPaymentMethodReinitializePayment
             'order' => $order, 
             'paymentMethodId' => $mopId,
             'paymentKey' => $paymentKey,
-            'isRedirectPayment' => $paymentService->isRedirectPayment($paymentKey),
+            'isRedirectPayment' => $paymentService->isRedirectPayment($paymentKey, false),
             'redirectUrl' => $paymentService->getRedirectPaymentUrl(),
           ]);
        } else {
