@@ -144,9 +144,8 @@ class PaymentController extends Controller
         $paymentRequestData = !empty($sessionPaymentRequestData) ? array_merge($sessionPaymentRequestData, $responseData) : $responseData;
         $this->sessionStorage->getPlugin()->setValue('nnPaymentData', $paymentRequestData);
         $transactionDetails = $this->transaction->getTransactionData('orderNo', $responseData['order_no']);
-        if(empty($transactionDetails[0]->tid)) {
-            $this->paymentService->validateResponse();
-        }
+        $this->paymentService->validateResponse();
+       
         return $this->response->redirectTo('confirmation');
     }
 
