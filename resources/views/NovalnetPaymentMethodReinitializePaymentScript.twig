@@ -1,3 +1,5 @@
+<input type="hidden" name="nn_mop_id" id="nn_mop_id" value="{{paymentMethodIds}}">
+
 <script type="text/javascript">
 jQuery('document').ready(function() {
   jQuery('#redirect-payment-process').click(function() {
@@ -20,7 +22,8 @@ jQuery('document').ready(function() {
     });
   });
  
-
+  var paymentMethodIds = jQuery('#nn_mop_id').val();
+  console.log(paymentMethodIds);
   document.addEventListener('historyPaymentMethodChanged', e => {
     for(let property in e.detail.newOrder.order.properties){
       if(e.detail.newOrder.order.properties[property].typeId === 3){
