@@ -49,10 +49,8 @@ class NovalnetPaymentMethodReinitializePayment
         }
     }
     
-    $paymentKey = $paymentHelper->getPaymentKeyByMop($mopId);
-   
+       $paymentKey = $paymentHelper->getPaymentKeyByMop($mopId);
        $serverRequestData = $paymentService->getRequestParameters($basketRepository->load(), $paymentKey);
-       $paymentHelper->logger('request data', $serverRequestData);
        $sessionStorage->getPlugin()->setValue('nnPaymentData', $serverRequestData);
        $sessionStorage->getPlugin()->setValue('nnOrderNo',$order['id']);
        $sessionStorage->getPlugin()->setValue('mop',$mopId);
