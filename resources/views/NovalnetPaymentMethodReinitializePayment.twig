@@ -27,6 +27,7 @@
     <span class="col-xs-6 col-sm-7">
       <input type="hidden" name="paymentMethodId" id="paymentMethodId" value="{{paymentMethodId}}">
       {% if isRedirectPayment == true %}
+      <input type="hidden" name="nn_redirect_url" id="nn_redirect_url" value="{{redirectUrl}}">
       <a class="payment-confirmation-btn" id="redirect-payment-process"> Pay Now </a>
       {% else %}
       <a class="payment-confirmation-btn" id="direct-payment-process"> Pay Now </a>
