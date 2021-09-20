@@ -26,6 +26,7 @@ class NovalnetPaymentMethodReinitializePayment
     $paymentHelper->logger('order', $order);
     $paymentHelper->logger('payment12345', $payments);
     
+    // Get payment method Id and status
     foreach($order['properties'] as $property) {
         if($property['typeId'] == 3)
         {
@@ -37,6 +38,7 @@ class NovalnetPaymentMethodReinitializePayment
         }
     }
     
+     // Get transaction status
     foreach($payments as $payment)
     {
         $properties = $payment->properties;
@@ -48,13 +50,22 @@ class NovalnetPaymentMethodReinitializePayment
           }
         }
     }
-    
+      
+      // Changed payment method key
        $paymentKey = $paymentHelper->getPaymentKeyByMop($mopId);
-       $serverRequestData = $paymentService->getRequestParameters($basketRepository->load(), $paymentKey);
-       $sessionStorage->getPlugin()->setValue('nnPaymentData', $serverRequestData);
+      // Get the orderamount from order object if the basket amount is empty
+       $orderAmount = $paymentHelper->ConvertAmountToSmallerUnit($order['amounts'][0]['invoiceTotal']);
+      // Form the payment request data 
+       $serverRequestData = $paymentService->getRequestParameters($basketRepository->load(), $paymentKey, false, $orderAmount);
        $sessionStorage->getPlugin()->setValue('nnOrderNo',$order['id']);
        $sessionStorage->getPlugin()->setValue('mop',$mopId);
        $sessionStorage->getPlugin()->setValue('paymentKey',$paymentKey);
+       
+      if ($paymentService->isRedirectPayment($paymentKey)) {
+         $sessionStorage->getPlugin()->setValue('nnPaymentData', $serverRequestData['data']);
+      } else {
+          $sessionStorage->getPlugin()->setValue('nnPaymentData', $serverRequestData);
+      }
        
        if( !in_array($tid_status, [75, 85, 86, 90, 91, 98, 99, 100]) ) {
           return $twig->render('Novalnet::NovalnetPaymentMethodReinitializePayment', [
