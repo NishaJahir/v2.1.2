@@ -949,6 +949,7 @@ class PaymentService
     public function getDatabaseValues($orderId) {
         $database = pluginApp(DataBase::class);
         $transaction_details = $database->query(TransactionLog::class)->where('orderNo', '=', $orderId)->get();
+	if (!empty($transaction_details)) {
         foreach($transaction_details as $transaction_detail) {
              $end_transaction_detail = $transaction_detail;
 	}
