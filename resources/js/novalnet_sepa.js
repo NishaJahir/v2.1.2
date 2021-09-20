@@ -1,11 +1,11 @@
-$(document).ready( function() {
-    $('#nn_sepa_iban').on('input',function ( event ) {
-        let iban = $(this).val().replace( /[^a-zA-Z0-9]+/g, "" ).replace( /\s+/g, "" );
-            $(this).val(iban);      
+jQuery(document).ready( function() {
+    jQuery('#nn_sepa_iban').on('input',function ( event ) {
+        let iban = jQuery(this).val().replace( /[^a-zA-Z0-9]+/g, "" ).replace( /\s+/g, "" );
+            jQuery(this).val(iban);      
     });
     
   
-  $( '#nn_sepa_cardholder' ).keypress(
+  jQuery( '#nn_sepa_cardholder' ).keypress(
                 function (event) {
         var keycode = ( 'which' in event ) ? event.which : event.keyCode,
                 reg     = /[^0-9\[\]\/\\#,+@!^()$~%'"=:;<>{}\_\|*?`]/g;
@@ -13,8 +13,8 @@ $(document).ready( function() {
                     }
             );
             
-    $('#novalnet_form').on('submit',function(){
-      $('#novalnet_form_btn').attr('disabled',true);      
+    jQuery('#novalnet_form').on('submit',function(){
+      jQuery('#novalnet_form_btn').attr('disabled',true);      
     });
   
 });
