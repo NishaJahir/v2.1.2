@@ -234,6 +234,8 @@ class PaymentController extends Controller
         if (!empty ($address->companyName) ) {
             unset($serverRequestData['data']['birth_date']);
         }
+        
+        $serverRequestData['data']['amount'] = !empty($serverRequestData['data']['amount']) ? $serverRequestData['data']['amount'] : $requestData['nn_orderamount'];
         $this->sessionStorage->getPlugin()->setValue('nnPaymentData', $serverRequestData); 
         if(!empty($requestData['nn_reinit'])) {
             $this->paymentService->paymentCalltoNovalnetServer();
