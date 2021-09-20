@@ -1,5 +1,6 @@
 <input type="hidden" name="nn_mop_id" id="nn_mop_id" value="{{paymentMethodIds}}">
 
+<script type="text/javascript">
   $(function () {
     $("[id^='nnReinitPaymentMethod-']").click(function () {
       var orderId = $(this).attr('id').split('-')[1];
