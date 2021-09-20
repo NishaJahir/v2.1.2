@@ -25,6 +25,7 @@ class NovalnetPaymentMethodReinitializePaymentScript
         }
     }
         
+    $paymentHelper->logger(ids, $paymentMethodIds);
     
     return $twig->render('Novalnet::NovalnetPaymentMethodReinitializePaymentScript', ['paymentMethodIds' => $paymentMethodIds, 'order' => $order]);
   }
