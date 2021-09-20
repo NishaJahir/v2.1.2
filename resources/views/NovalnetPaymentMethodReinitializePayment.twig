@@ -29,7 +29,7 @@
       {% if isRedirectPayment == true %}
       <input type="hidden" name="nn_redirect_url" id="nn_redirect_url" value="{{redirectUrl}}">
       <a class="payment-confirmation-btn" id="redirect-payment-process"> Pay Now </a>
-      {% elseif paymentKey in ['NOVALNET_INSTALMENT_INVOICE', 'NOVALNET_INSTALMENT_SEPA'] %}
+      {% elseif paymentKey in ['NOVALNET_SEPA', 'NOVALNET_CC', 'NOVALNET_INSTALMENT_INVOICE', 'NOVALNET_INSTALMENT_SEPA'] %}
        <a class="payment-confirmation-btn" id="form-payment-process" data-toggle="modal" data-target="#novalnetPaymentForm"> Pay Now </a>
       {% else %}
       <a class="payment-confirmation-btn" id="direct-payment-process"> Pay Now </a>
