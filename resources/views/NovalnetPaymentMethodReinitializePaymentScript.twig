@@ -3,7 +3,6 @@
 <script type="text/javascript">
   $(function () {
     $("#direct-payment-process").click(function () {
-      var orderId = $(this).attr('id').split('-')[1];
       $.get("/payment/novalnet/changePaymentmethod/", function(data)
       {
         window.location = data;
